@@ -7,56 +7,62 @@ import React from 'react'
 import { FavoriteBorder, Menu, PersonOutline, ShoppingCartOutlined } from '@mui/icons-material';
 import TopBarSearch from './top-bar-search'
 import { CATEGORIES } from '@/utils/data'
+import MainDrawer from './main-drawer'
+import useBoolean from '@/hooks/useBoolean'
 
 const TopBar = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
 
-    
+    const drawerOpen = useBoolean()
+
 
   return (
-    <AppBar color='inherit' sx={{ py: 2 }}>
-        <Toolbar>
-            <ContainerOverlay>
-                <Stack gap={3}>
+    <>
+        {isSmallScreen && <MainDrawer onClose={drawerOpen.onFalse} open={drawerOpen.value} />}
+        <AppBar color='inherit' sx={{ py: 2 }}>
+            <Toolbar>
+                <ContainerOverlay>
+                    <Stack gap={3}>
 
-                    <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
-                        <Typography variant='body2' color='textSecondary'>Welcome to {PROJECT_NAME}!</Typography>
-                        {!isSmallScreen && <Stack gap={2} alignItems='center' direction='row'>
-                            <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/'>Become a Vendor</MuiLink>
-                            <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/'>Help Center</MuiLink>
-                        </Stack>}
-                    </Stack>
-
-                    <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
-                        <Logo />
-                        {!isSmallScreen && <TopBarSearch />}
-                        <Stack gap={2} direction='row' alignItems='center'>
-                            <Badge badgeContent={3} color='primary' >
-                                <IconButton size='small'><FavoriteBorder fontSize='small' /></IconButton>
-                            </Badge>
-                            <Badge badgeContent={3} color='primary' >
-                                <IconButton size='small'><ShoppingCartOutlined fontSize='small' /></IconButton>
-                            </Badge>
-                            <IconButton size='small'><PersonOutline fontSize='small' /></IconButton>
-                            {isSmallScreen && <IconButton size='small'><Menu fontSize='small' /></IconButton>}
+                        <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
+                            <Typography variant='body2' color='textSecondary'>Welcome to {PROJECT_NAME}!</Typography>
+                            {!isSmallScreen && <Stack gap={2} alignItems='center' direction='row'>
+                                <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/'>Become a Vendor</MuiLink>
+                                <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/'>Help Center</MuiLink>
+                            </Stack>}
                         </Stack>
-                    </Stack>
 
-                </Stack>
-            </ContainerOverlay>
-        </Toolbar>
-        {!isSmallScreen && <>
-            <Divider sx={{ my: 2 }} />
-            <ContainerOverlay>
-                <Stack gap={2} alignItems='center' direction='row'>
-                    {CATEGORIES.map((cat, index) => <MuiLink key={index} variant='subtitle2' underline='none' color='textSecondary' component={Link} href={`/category/${cat.slug}`}>{cat.name}</MuiLink>)}
-                    <MuiLink variant='subtitle2' underline='none' color='textSecondary' component={Link} href='/services'>Services</MuiLink>
-                </Stack>
-            </ContainerOverlay>
-        </>}
-    </AppBar>
+                        <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
+                            <Logo />
+                            {!isSmallScreen && <TopBarSearch />}
+                            <Stack gap={2} direction='row' alignItems='center'>
+                                <Badge badgeContent={3} color='primary' >
+                                    <IconButton size='small'><FavoriteBorder fontSize='small' /></IconButton>
+                                </Badge>
+                                <Badge badgeContent={3} color='primary' >
+                                    <IconButton size='small'><ShoppingCartOutlined fontSize='small' /></IconButton>
+                                </Badge>
+                                <IconButton size='small'><PersonOutline fontSize='small' /></IconButton>
+                                {isSmallScreen && <IconButton size='small' onClick={drawerOpen.onTrue}><Menu fontSize='small' /></IconButton>}
+                            </Stack>
+                        </Stack>
+
+                    </Stack>
+                </ContainerOverlay>
+            </Toolbar>
+            {!isSmallScreen && <>
+                <Divider sx={{ my: 2 }} />
+                <ContainerOverlay>
+                    <Stack gap={2} alignItems='center' direction='row'>
+                        {CATEGORIES.map((cat, index) => <MuiLink key={index} variant='subtitle2' underline='none' color='textSecondary' component={Link} href={`/category/${cat.slug}`}>{cat.name}</MuiLink>)}
+                        <MuiLink variant='subtitle2' underline='none' color='textSecondary' component={Link} href='/services'>Services</MuiLink>
+                    </Stack>
+                </ContainerOverlay>
+            </>}
+        </AppBar>
+    </>
   )
 }
 
