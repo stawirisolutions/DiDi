@@ -7,7 +7,7 @@ const BecomeVendor = () => {
   return (
     <div style={{ backgroundColor: '#F5F5F5' }}>
         <ContainerOverlay paddingVertical={5}>
-            <div className='flex gap-12 items-center justify-between'>
+            <div className='flex flex-col md:flex-row gap-12 items-center justify-between'>
                 <div className='flex flex-3/5 flex-col gap-3'>
                     <Typography variant='h5' fontWeight={600}>Become a Vendor on {PROJECT_NAME}</Typography>
                     <div>

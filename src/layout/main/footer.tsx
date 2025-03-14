@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div style={{ background: '#f5f5f5', padding: '40px 0' }}>
         <Container>
-            <div className='grid gap-8 grid-cols-3'>
+            <div className='grid gap-8 md:grid-cols-3'>
                 <div className='flex flex-col gap-6'>
                     <Typography variant='h6' fontWeight={800}>About {PROJECT_NAME}</Typography>
                     <Typography color='textSecondary' fontWeight={600}>{PROJECT_NAME} is a leading multivendor marketplace offering a wide range of products and services from trusted vendors across the globe.</Typography>
@@ -34,7 +34,7 @@ const Footer = () => {
         </Container>
         <Divider sx={{ my: 4 }} />
         <Container>
-            <div className='flex gap-5 items-center justify-between'>
+            <div className='flex flex-col md:flex-row gap-5 items-center justify-between'>
                 <Typography color='textSecondary' variant='body2'>&copy; {new Date().getFullYear()} {PROJECT_NAME}. All rights reserved</Typography>
                 <div className='flex gap-2 items-center'>
                     <Facebook />

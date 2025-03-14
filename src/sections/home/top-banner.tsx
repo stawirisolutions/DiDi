@@ -1,6 +1,6 @@
 'use client'
 
-import { Stack, styled, Typography } from '@mui/material'
+import { Stack, styled, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,6 +25,9 @@ const ContentDiv = styled('div')(() => ({
 }))
 
 const TopBanner = () => {
+
+    const theme = useTheme();
+    const isSmallScreen = theme.breakpoints.down('md')
 
     const SLIDER_IMAGES = [
         '/images/banner-one.jpg',
@@ -60,7 +63,7 @@ const TopBanner = () => {
         <ContentDiv>
             <ContainerOverlay>
                 <Stack gap={3} alignItems='center' justifyContent='center' sx={{ height: '100%', color: 'white' }}>
-                    <Typography variant='h3' fontWeight={800} textAlign='center'>Shop Products & Services <br /> from Top Vendors</Typography>
+                    <Typography variant={isSmallScreen ? 'h4' : 'h3'} fontWeight={800} textAlign='center'>Shop Products & Services <br /> from Top Vendors</Typography>
                     <TopBarSearch isWhiteBg showSearchText />
                 </Stack>
             </ContainerOverlay>

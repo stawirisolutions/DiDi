@@ -3,7 +3,7 @@
 import ContainerOverlay from '@/components/container-overlay'
 import { PRIMARY_COLOR } from '@/config'
 import { CATEGORIES } from '@/utils/data'
-import { Button, Stack, styled, Typography } from '@mui/material'
+import { Button, Stack, styled, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React from 'react'
 
 const SingleCategoryContainer = styled('div')(() => ({
@@ -25,12 +25,14 @@ const SingleCategoryContainer = styled('div')(() => ({
 }))
 
 const CategorySection = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <ContainerOverlay paddingVertical={5}>
         <Stack gap={5}>
             <Typography variant='h5' fontWeight={600}>Shop By Category</Typography>
 
-            <div className='grid gap-8 grid-cols-6'>
+            <div className='grid gap-8 grid-cols-2 md:grid-cols-6'>
                 {CATEGORIES.map((cat, index) => <SingleCategoryContainer key={index}>
                     <img src={cat.image} alt={cat.name} style={{ width: '50px', height: '50px' }} />
                     <Typography variant='body2'>{cat.name}</Typography>
@@ -51,23 +53,24 @@ const CategorySection = () => {
                         px: 6, 
                         py: 4, 
                         borderTopLeftRadius: '12px', 
-                        borderBottomLeftRadius: '12px' 
+                        borderBottomLeftRadius: '12px',
+                        ...(isSmallScreen && { borderRadius: '12px' })
                     }} 
                     justifyContent='center' 
                     gap={2}
                 >
                     <Typography variant='h5' fontWeight={800}>Summer Sale is Live!</Typography>
-                    <Typography sx={{ width: '60%' }}>
+                    <Typography sx={{ width: isSmallScreen ? "100%" : '60%' }}>
                         Enjoy up to 50% off on thousands of products across all categories. Limited time offer, show now before stock runs out!
                     </Typography>
                     <Button sx={{ backgroundColor: 'white', width: 'fit-content', px: 2 }}>Show Now</Button>
                 </Stack>
-                <div style={{ flex: 3, height: '50vh' }}>
+                {!isSmallScreen && <div style={{ flex: 3, height: '50vh' }}>
                     <img
                         src='/images/banner-one.jpg'
                         style={{ height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                     />
-                </div>
+                </div>}
             </Stack>
         </Stack>
     </ContainerOverlay>

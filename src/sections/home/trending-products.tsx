@@ -10,7 +10,7 @@ const TrendingProducts = () => {
         <Stack gap={5}>
             <Typography variant='h5' fontWeight={600}>Trending Products</Typography>
 
-            <div className='grid gap-8 grid-cols-3'>
+            <div className='grid gap-8 md:grid-cols-3'>
                 {PRODUCTS.map((each, index) => <ProductCard key={index} product={each} />)}
             </div>
         </Stack>

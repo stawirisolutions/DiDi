@@ -12,7 +12,7 @@ const TopRatedVendors = () => {
         <Stack gap={5}>
             <Typography variant='h5' fontWeight={600}>Top-Rated Vendors</Typography>
 
-            <div className='grid gap-8 grid-cols-3'>
+            <div className='grid gap-8 md:grid-cols-3'>
                 {VENDORS.map((each, index) => <VendorCard key={index} vendor={each} />)}
             </div>
         </Stack>
