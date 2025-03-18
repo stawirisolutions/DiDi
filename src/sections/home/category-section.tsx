@@ -2,11 +2,12 @@
 
 import ContainerOverlay from '@/components/container-overlay'
 import { PRIMARY_COLOR } from '@/config'
-import { CATEGORIES } from '@/utils/data'
-import { Button, Stack, styled, Typography, useMediaQuery, useTheme } from '@mui/material'
+import useMainStore from '@/store/main-store'
+import { Box, Button, Stack, styled, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const SingleCategoryContainer = styled('div')(() => ({
+const SingleCategoryContainer = styled(Box)(() => ({
     padding: '24px 6px',
     display: 'flex',
     flexDirection: 'column',
@@ -27,14 +28,19 @@ const SingleCategoryContainer = styled('div')(() => ({
 const CategorySection = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
+
+    const { categories } = useMainStore();
+
+    const { push } = useRouter();
+
   return (
     <ContainerOverlay paddingVertical={5}>
         <Stack gap={5}>
             <Typography variant='h5' fontWeight={600}>Shop By Category</Typography>
 
             <div className='grid gap-8 grid-cols-2 md:grid-cols-6'>
-                {CATEGORIES.map((cat, index) => <SingleCategoryContainer key={index}>
-                    <img src={cat.image} alt={cat.name} style={{ width: '50px', height: '50px' }} />
+                {categories.filter(each => each.featured).map((cat, index) => <SingleCategoryContainer onClick={() => { push(`/category/${cat.slug}`) }} key={index}>
+                    <img src={cat.image} alt={cat.name} className='w-[50px] h-[50px]' />
                     <Typography variant='body2'>{cat.name}</Typography>
                 </SingleCategoryContainer>)}
             </div>

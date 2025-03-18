@@ -1,11 +1,14 @@
 import { PROJECT_NAME } from '@/config'
-import { CATEGORIES } from '@/utils/data'
+import useMainStore from '@/store/main-store'
 import { Facebook, Instagram, LinkedIn, X } from '@mui/icons-material'
 import { Container, Divider, Typography, Link as MuiLink } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
+
+    const { categories } = useMainStore();
+
   return (
     <div style={{ background: '#f5f5f5', padding: '40px 0' }}>
         <Container>
@@ -27,7 +30,7 @@ const Footer = () => {
                 <div className='flex flex-col gap-6'>
                     <Typography variant='h6' fontWeight={800}>Categories</Typography>
                     <div className='flex flex-col gap-1'>
-                        {CATEGORIES.map((each, index) => <MuiLink key={index} component={Link} href={`/category/${each.slug}`} color='textSecondary' underline='hover'>{each.name}</MuiLink>)}
+                        {categories.filter(each => each.featured).map((each, index) => <MuiLink key={index} component={Link} href={`/category/${each.slug}`} color='textSecondary' underline='hover'>{each.name}</MuiLink>)}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import { PROJECT_NAME } from '@/config'
-import { CATEGORIES } from '@/utils/data'
+import useMainStore from '@/store/main-store'
 import { Close } from '@mui/icons-material'
 import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -11,6 +11,9 @@ interface MAIN_DRAWER_PROPS {
 }
 
 const MainDrawer = ({ onClose, open }: MAIN_DRAWER_PROPS) => {
+
+    const { categories } = useMainStore();
+
   return (
     <Drawer
         open={open}
@@ -28,7 +31,7 @@ const MainDrawer = ({ onClose, open }: MAIN_DRAWER_PROPS) => {
             <Divider />
             <Typography variant='subtitle1' fontWeight={600}>Categories</Typography>
             <List component='nav'>
-                {CATEGORIES.map((each, index) => <ListItemButton key={index} LinkComponent={Link} href={`/category/${each.slug}`} onClick={onClose}>
+                {categories.filter((each) => each.featured).map((each, index) => <ListItemButton key={index} LinkComponent={Link} href={`/category/${each.slug}`} onClick={onClose}>
                     <ListItemText
                         primary={each.name}
                     />

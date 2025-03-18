@@ -1,3 +1,39 @@
+import numeral from 'numeral';
+import imageCompression, { Options } from 'browser-image-compression';
+
+function result(format?: any, key = '.00') {
+    const isInteger = format.includes(key);
+  
+    return isInteger ? format.replace(key, '') : format;
+}
+  
+export function fData(number: number) {
+    const format = number ? numeral(number).format('0.0 b') : '';
+    return result(format, '.0');
+};
+
+export function randomString (length: number) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
+}
+
+export const compressImageHandler = async (file: File) => {
+    const compressOptions: Options = {
+      maxSizeMB:  0.5,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    };
+    const smallSizeDocument = await imageCompression(file, compressOptions);
+    return smallSizeDocument;
+}
+
 export const CATEGORIES = [
     { name: 'Electronics', slug: 'electronics', image: '/icons/electronics.png' },
     { name: 'Fashion', slug: 'fashion', image: '/icons/fashion.png' },
