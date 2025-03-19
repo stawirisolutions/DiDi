@@ -14,7 +14,7 @@ const Logo = ({ size = 80, showName }: { size?: number, showName?: boolean }) =>
         width={size}
       /> */}
       {PROJECT_NAME}
-      {showName && PROJECT_NAME}
+      {/* {showName && PROJECT_NAME} */}
     </MuiLink>
   )
 }
