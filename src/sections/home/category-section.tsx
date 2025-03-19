@@ -45,7 +45,7 @@ const CategorySection = () => {
                 </SingleCategoryContainer>)}
             </div>
 
-            <Stack
+            {/* <Stack
                 direction='row'
                 sx={{
                     borderRadius: '12px',
@@ -77,7 +77,7 @@ const CategorySection = () => {
                         style={{ height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                     />
                 </div>}
-            </Stack>
+            </Stack> */}
         </Stack>
     </ContainerOverlay>
   )
