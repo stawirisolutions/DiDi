@@ -7,12 +7,13 @@ import { PROJECT_NAME } from '@/config';
 const Logo = ({ size = 80, showName }: { size?: number, showName?: boolean }) => {
   return (
     <MuiLink className='flex items-center' component={Link} href='/' variant='h5' underline='none' fontWeight={600}>
-      <Image
+      {/* <Image
         src='/logo.png'
         alt='Logo'
         height={size}
         width={size}
-      />
+      /> */}
+      {PROJECT_NAME}
       {showName && PROJECT_NAME}
     </MuiLink>
   )
