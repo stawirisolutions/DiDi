@@ -25,8 +25,8 @@ export const authOptions: NextAuthOptions = {
             }
         }),
         GoogleProvider({
-            clientId: '337989205449-1nh21102rdppqble729au4o246vdim3i.apps.googleusercontent.com',
-            clientSecret: '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',
+            clientId: process.env.GOOGLE_CLIENT_ID || "GOOGLE_CLIENT_ID",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "GOOGLE_CLIENT_SECRET",
         })
     ],
     session: { strategy: 'jwt', maxAge: 60 * 60 },
