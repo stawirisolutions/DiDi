@@ -1,6 +1,7 @@
 import ContainerOverlay from '@/components/container-overlay'
 import { PROJECT_NAME } from '@/config'
 import { Button, Typography } from '@mui/material'
+import Link from 'next/link'
 import React from 'react'
 
 const BecomeVendor = () => {
@@ -15,8 +16,8 @@ const BecomeVendor = () => {
                         <Typography color='textSecondary'>Reach more customers and grow your business with {PROJECT_NAME}</Typography>
                     </div>
                     <div className='flex items-center gap-3'>
-                        <Button variant='contained' sx={{ color: 'white' }}>Sell Products</Button>
-                        <Button variant='contained' color='secondary'>Offer Services</Button>
+                        <Button LinkComponent={Link} href='/auth/register?interest=vendor' variant='contained' sx={{ color: 'white' }}>Sell Products</Button>
+                        <Button LinkComponent={Link} href='/auth/register?interest=vendor' variant='contained' color='secondary'>Offer Services</Button>
                     </div>
                 </div>
                 <img

@@ -5,12 +5,16 @@ import SingleProduct from '@/sections/single-product';
 import { PRODUCT } from '@/utils/types';
 import { Metadata } from 'next'
 import React from 'react'
+import { headers } from 'next/headers';
 
 type PROPS = {
     params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: PROPS): Promise<Metadata> {
+
+    headers();
+
     const { slug } = await params;
 
     const request = useAxios();

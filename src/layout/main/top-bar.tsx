@@ -60,15 +60,7 @@ const TopBar = () => {
                     <Stack gap={3}>
 
                         <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
-                            <Typography variant='body2' color='textSecondary'>Welcome to {PROJECT_NAME}!</Typography>
-                            {!isSmallScreen && <Stack gap={2} alignItems='center' direction='row'>
-                                <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/auth/register?interest=vendor'>Become a Vendor</MuiLink>
-                                <MuiLink color='textSecondary' variant='body2' underline='hover' component={Link} href='/'>Help Center</MuiLink>
-                            </Stack>}
-                        </Stack>
-
-                        <Stack gap={2} alignItems='center' direction='row' justifyContent='space-between'>
-                            <Logo />
+                            <Logo showName />
                             {!isSmallScreen && <TopBarSearch />}
                             <Stack gap={2} direction='row' alignItems='center'>
                                 <Badge badgeContent={3} color='primary' >

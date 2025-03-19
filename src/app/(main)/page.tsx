@@ -16,7 +16,7 @@ export default async function Home() {
 
   const response = await request({
     method: 'get',
-    path: '/'
+    path: '/?prodLimit=8&servLimit=8&storeLimit=3'
   })
 
   return (

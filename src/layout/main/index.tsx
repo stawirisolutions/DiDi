@@ -16,7 +16,7 @@ const MainLayout = ({ children }: MAIN_LAYOUT_PROPS) => {
   return (
     <>
         <TopBar />
-        <main style={{ marginTop: isSmallScreen ? '100px' : '172px' }}>{children}</main>
+        <main style={{ marginTop: isSmallScreen ? '100px' : '150px' }}>{children}</main>
         <Footer />
     </>
   )
