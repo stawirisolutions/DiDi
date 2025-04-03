@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Configure MongoDB data source
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Enums
+enum Role {
+  BUYER
+  VENDOR
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum ProductStatus {
+  ACTIVE
+  OUT_OF_STOCK
+  DISCONTINUED
+}
+
+// Model definitions with indexes
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique(map: "unique_email_index") // Unique constraint, no need for @@index
+  phone     String   @unique(map: "unique_phone_index") // Unique constraint, no need for @@index
+  password  String
+  role      Role     @default(BUYER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    String[] // Store Order IDs as Strings (no direct relation)
+  products  String[] // Store Product IDs as Strings (for vendors)
+}
+
+model Category {
+  id            String   @id @map("_id") @db.ObjectId
+  name          String   @unique(map: "unique_category_name_index") // Unique constraint, no need for @@index
+  subCategories String[] // Store SubCategory IDs as Strings
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SubCategory {
+  id          String   @id @map("_id") @db.ObjectId
+  name        String   @unique(map: "unique_subcategory_name_index") // Unique constraint, no need for @@index
+  categoryId  String   // Store Category ID as String
+  products    String[] // Store Product IDs as Strings
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Product {
+  id            String        @id @map("_id") @db.ObjectId
+  name          String
+  description   String
+  price         Float
+  stock         Int
+  images        String[]      // Store Image URLs or paths as Strings
+  status        ProductStatus @default(ACTIVE)
+  vendorId      String        // Store Vendor ID as String
+  subCategoryId String        // Store SubCategory ID as String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  sales         String[]      // Store Sale IDs as Strings
+}
+
+model Order {
+  id        String       @id @map("_id") @db.ObjectId
+  userId    String       // Store User ID as String
+  products  String[]     // Store Product IDs as Strings
+  total     Float
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model OrderItem {
+  id        String @id @map("_id") @db.ObjectId
+  orderId   String
+  productId String
+  quantity  Int
+}
+
+model Sale {
+  id        String   @id @map("_id") @db.ObjectId
+  productId String   // Store Product ID as String
+  vendorId  String   // Store Vendor ID as String
+  amount    Float
+  createdAt DateTime @default(now())
+}
+
+model AdminDashboard {
+  id          String  @id @map("_id") @db.ObjectId
+  adminId     String  // Store Admin ID as String
+  totalUsers  Int
+  totalRevenue Float
+  createdAt   DateTime @default(now())
+}
+
+model VendorDashboard {
+  id          String  @id @map("_id") @db.ObjectId
+  vendorId    String  // Store Vendor ID as String
+  totalSales  Int
+  totalRevenue Float
+  createdAt   DateTime @default(now())
+}
+
